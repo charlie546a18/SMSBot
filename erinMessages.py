@@ -8,18 +8,18 @@ import random
 def dayCheck(month,day):
 	#if its erin's birthday say happy brithday
 	if month == 8 and day == 27:
-		my_msg = "Happy Birthday lil ern!"
+		return "Happy Birthday lil ern!"
 	elif month == 12 and day == 25:
-		my_msg = "MERRY CHRISTMAS!"
+		return "MERRY CHRISTMAS!"
 	elif month == 11 and day == 23:
-		my_msg = "Happy Turkey Day"
+		return "Happy Turkey Day"
 	elif month == 1 and day == 1:
-		my_msg = "HAPPY NEW YEAR!!! Make it a good one!"
+		return "HAPPY NEW YEAR!!! Make it a good one!"
 	elif month == 11 and day == 20:
-		my_msg = "Dude its today"
+		return "Dude its today"
 	else:
 		#pick a random message from 'messages' list
-		my_msg = random.choice(messages)
+		return random.choice(messages)
 
 #a list of possible messages that can be sent to users
 messages = [
