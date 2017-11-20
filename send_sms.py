@@ -51,10 +51,9 @@ def reminder():
 		print("Message sent to Erin Gisolfi, Hours until next message:")
 
 		#create a random interval of time between 1 - 8 hours
-		waitTime = 120#randint(10800,43200)
+		waitTime = randint(10800,43200)
 		#print aprox how many hours the function will sleep
 		print(waitTime/60/60)
-
 
 		#set the fucntion to sleep for x amount of time then run again, and loop
 		print("Start : %s" % time.ctime())
