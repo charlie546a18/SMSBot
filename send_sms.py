@@ -15,18 +15,12 @@ import os, sys, json
 
 def reminder():
 
-	#list of numbers to send messages to
-	contacts = [
-		8452044105,#daniel
-		8452402529#Erin
-	]
-	
 	#get authentication sid from config vars	
 	account_sid = os.getenv('account_sid')
 	#get authentication token from config vars
 	auth_token = os.getenv('auth_token')
 	#chose wich cell phone number from the list to direct the message towards
-	my_cell = contacts[0]
+	my_cell = os.getenv('DNum')
 	#get twilio account number from config vars
 	my_twilio = os.getenv('my_twilio')
 

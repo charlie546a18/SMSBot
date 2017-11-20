@@ -15,8 +15,6 @@ def dayCheck(month,day):
 		return "Happy Turkey Day"
 	elif month == 1 and day == 1:
 		return "HAPPY NEW YEAR!!! Make it a good one!"
-	elif month == 11 and day == 20:
-		return "Dude its today"
 	else:
 		#pick a random message from 'messages' list
 		return random.choice(messages)
@@ -37,5 +35,11 @@ messages = [
 	"Today is gonna be a great day!",
 	"Remember to treat yo self.",
 	"Remember to make every day the best it can be",
-	""
+	"Whatever you are, be a good one.",
+	"If not us, who? If not now, when?",
+	"Remember no one can make you feel inferior without your consent.",
+	"Wherever you go, go with all your heart.",
+	"Do one thing every day that scares you.",
+	"You must do the thing you think you cannot do.",
+	"Eighty percent of success is showing up, the other 20 percent is doing the the thing but dont worry about that rn"
 ]
