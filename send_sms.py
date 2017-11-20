@@ -20,7 +20,7 @@ def reminder():
 	#get authentication token from config vars
 	auth_token = os.getenv('auth_token')
 	#chose wich cell phone number from the list to direct the message towards
-	my_cell = os.getenv('DNum')
+	my_cell = os.getenv('ENum')
 	#get twilio account number from config vars
 	my_twilio = os.getenv('my_twilio')
 
