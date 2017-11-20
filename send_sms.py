@@ -49,7 +49,7 @@ def reminder():
 		waitTime = randint(10800,43200)
 		print(waitTime/60/60)
 		i = 0
-		while i < total:
+		while i < waitTime:
 		    progress(i, waitTime, status='waiting to send next message')
 		    time.sleep(0.5)  # emulating long-playing job
 		    i += 1
