@@ -4,7 +4,6 @@
 # erinmessages.py
 
 import random
-import
 
 def dayCheck(month,day):
 	#if its erin's birthday say happy brithday
