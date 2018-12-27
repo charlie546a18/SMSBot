@@ -6,6 +6,7 @@ from twilio.rest import Client
 import datetime
 import holidays
 import random
+import time
 import json
 import sys
 import os
@@ -25,22 +26,22 @@ class Bot:
         
     def sendMessage(self, msg):
         # Declare the Client with the Bots API Info
-	    client = Client(self.account_sid, self.auth_token)
+        client = Client(self.account_sid, self.auth_token)
 
         # Send a sms from twilio number to cell with my_msg as text
-        message = client.messages.create(
-            to=self.target_num, 
-            from_=self.account_num, 
-            body=msg
-        )
-
-		# result = client.api.account.messages.create(to=self.target_num, from_=self.account_num, body=msg)
+        message = client.messages.create(from_=self.account_num, to=self.target_num, body=msg)
         print(message.sid)
+
     def getMessage(self):
-        file = open('messages.json')
-        messages = file.read()
-        json_data = json.loads(messages)
-        random.choice(json_data['messages'])
+        try:
+            file = open('messages.json')
+            messages = file.read()
+            json_data = json.loads(messages)
+            return random.choice(json_data['messages'])
+            file.close()
+        except:
+            print(f'Cannot Read Messages.json file; Is it in the right location?')
+            sys.exit(1)
 
     def checkForHoliday(self, date):
         us_holidays = holidays.US()
@@ -72,14 +73,21 @@ class Bot:
                 # Check the Day
                 message = self.checkDate()
                 # Get the Message to be sent
-                if message == None:
+                if message is None:
                     message = self.getMessage()
 
                 # Send the Message
-                self.sendMessage(message)
+                # self.sendMessage(message)
 
                 # Get a random interval of time to wait for
                 # Once waiting has finished Send another message
+                waitTime = random.randint(10800,43200)
+                print(f'Waiting for the next {waitTime/60/60} hours')
+                i = 0
+                while i < waitTime:
+                    self.progress(i, waitTime, status='waiting to send next message')
+                    time.sleep(0.5)
+                    i += 1
                 
         except KeyboardInterrupt:
             print('Bot Interupted')
