@@ -3,6 +3,7 @@
 
 #import all twilio dependencies
 from twilio.rest import Client
+from tqdm import tqdm
 import datetime
 import holidays
 import random
@@ -77,23 +78,18 @@ class Bot:
                     message = self.getMessage()
 
                 # Send the Message
-                # self.sendMessage(message)
+                self.sendMessage(message)
 
                 # Get a random interval of time to wait for
                 # Once waiting has finished Send another message
-                waitTime = random.randint(10800,43200)
-                print(f'Waiting for the next {waitTime/60/60} hours')
-                i = 0
-                while i < waitTime:
-                    self.progress(i, waitTime, status='waiting to send next message')
-                    time.sleep(0.5)
-                    i += 1
+                wait_time = random.randint(10800,43200)
+                print(f'Waiting for the next {wait_time/60/60} hours')
+                for tick in tqdm(range(wait_time)):
+                    time.sleep(1)
+
                 
         except KeyboardInterrupt:
             print('Bot Interupted')
-
-    def progess(self):
-        pass
 
     def __del__(self):
         print(f'Deleted Bot: {self.name}')

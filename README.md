@@ -1,21 +1,42 @@
-# Erin-Message-Bot
+# SMS Bot
 
-This is a minnimal one way(for now) chat bot. It sends outgoing text-messages to whoever the contacts list is set as.
+This is a minimal one way(for now) chatbot. It sends outgoing SMS to whoever the bot's `target_num` variable is set to.
 
-### Prerequisites
+### Author
 
-All requiremnets to run a instance of this project
-
-* Twilio API
-* Heroku CLI
+**Daniel Gisolfi** - *All current work* - [dgisolfi](https://github.com/dgisolfi)
 
 ## Deployment
 
-Currently I have a version of this running on a Heroku web server to run your own instance you can use any  simmilar web service.
+The SMS Bot is currently deployed in a Docker Container on my personal VM. To deploy another instance of the Bot you can do the following:
 
-## Basic Understanding
+1. Get a Twilio SID and Authentication Token as well as an account phone number(do this by creating a new account)
 
-This is a very simple web bot that uses the following code found on the [Twilio](https://www.twilio.com/docs/quickstart/python/sms/sending-via-rest) site to send messages to a user.
+2. Edit the Dockerfile found in the root of the repository to add environment variables. The Bot requires 4, the following is a working example
+
+   ```dockerfile
+   # After The intial From Command
+   # SET ALL ENVIORMENT VARIABLES
+   ENV account_sid=ACXXXXXXXXXXXXXXXXX
+   ENV auth_token=YYYYYYYYYYYYYYYYYY
+   ENV account_num=+12316851234
+   ENV target_num=+15555555555 
+   # Before the final run command
+   ```
+
+3. Create Image of the edited Dockerfile by running the necessary make command `make build`
+
+   *Note: You can change the name of the bot before running this command in the Bot.py file*
+
+4. The Bot can now be run by using the make command `make all`
+
+## Developing
+
+To make changes or even develop the Bot further a development environment can be created. Simply run `make dev`. When completed change directory to the root of the container and enter the `/DEV` directory. Once inside all files inside the directory are volume mounted for testing purposes.
+
+## Resources
+
+This Bot only has a handful of dependencies(listed in the `requirements.txt` file) however the most important is Twilio. Below is a very simple example of how to send SMS using the Twilio API in python. This example and many more can be found at [Twilio](https://www.twilio.com/docs/quickstart/python/sms/sending-via-rest).
 
 ```python
 # /usr/bin/env python
@@ -33,22 +54,3 @@ client.api.account.messages.create(
     from_="+15555555555",
     body="Hello there!")
 ```
-
-
-
-## Built With
-
-[Twilio](https://github.com/twilio) - An API used to send and receive text messages.
-
-## Author
-
-- **Daniel Gisolfi** - *All current work* - [dgisolfi](https://github.com/dgisolfi)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](https://gist.github.com/PurpleBooth/LICENSE.md) file for details
-
-## Acknowledgments
-
-- Twilio API - this bot leans heavily on twilio's API
-- Inspiration - My sister requested i create her an inspirational bot, here is the basic version of it
