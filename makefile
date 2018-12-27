@@ -27,7 +27,7 @@ build: intro clean
 	@docker build -t $(image) .
 
 run:
-	@docker run -it --rm --name $(container)_prod $(hub_image) bash
+	@docker run -it --rm --name $(container)_prod $(hub_image)
 
 # build development enviorment
 dev_bot: intro build
