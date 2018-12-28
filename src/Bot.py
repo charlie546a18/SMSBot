@@ -26,15 +26,21 @@ class Bot:
         return f'Object: {self.string}'
         
     def sendMessage(self, msg):
-        # Declare the Client with the Bots API Info
-        client = Client(self.account_sid, self.auth_token)
+        try:
+            # Declare the Client with the Bots API Info
+            client = Client(self.account_sid, self.auth_token)
 
-        # Send a sms from twilio number to cell with my_msg as text
-        message = client.messages.create(
-            from_=self.account_num, 
-            to=self.target_num, 
-            body=msg
-        )
+            # Send a sms from twilio number to cell with my_msg as text
+            message = client.messages.create(
+                from_=self.account_num, 
+                to=self.target_num, 
+                body=msg
+            )
+
+            return message.status
+        except:
+            print(f'Message Sending Failure. Check Account Details')
+            sys.exit(1)
 
     def getMessage(self, filename):
         try:
@@ -81,7 +87,8 @@ class Bot:
                     message = self.getMessage('messages.json')
 
                 # Send the Message
-                self.sendMessage(message)
+                status = self.sendMessage(message)
+                print(f'Sending "{message}" to target; Message status:{status}')
 
                 # Get a random interval of time to wait for
                 # Once waiting has finished Send another message

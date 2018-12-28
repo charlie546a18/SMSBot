@@ -1,4 +1,4 @@
-from src import bot
+from src.bot import *
 import pytest
 
 class TestBot:        
@@ -12,7 +12,7 @@ class TestBot:
         ]
 
         with pytest.raises(SystemExit):
-            bot.getOSVars(var_ids)
+            getOSVars(var_ids)
 
     # Check wether the types of the returned variables 
     # are of type string
@@ -24,18 +24,41 @@ class TestBot:
             'target_num'
         ]
 
-        vars = bot.getOSVars(var_ids)
+        vars = getOSVars(var_ids)
         for var in vars:
             assert type(var) == str
 
-    # 
+    # Check the getMessage Function
     def testGetMessage(self):
-        # Ensure the get message function returns a string
-        assert bot.getMessage('messages.json')
+        # Create a Dummy Bot to test functionality
+        bot = createFakeBot()
 
-        # Chek that if the file cannot be found an error is thrown
+        # Ensure the get message function returns a string
+        assert bot.getMessage('src/messages.json')
+
+        # Check that if the file cannot be found an error is thrown
         with pytest.raises(SystemExit):
             bot.getMessage('test_failure.json')
+        
+        bot.__del__()
+
+    # Check the sendMessage Function
+    def testSendMessage(self):
+        # Create a Dummy Bot to test functionality
+        bot = createFakeBot()
+        # Check if the message send failure is handeled
+        with pytest.raises(SystemExit):
+            bot.sendMessage('TEST MESSAGE')
+
+def createFakeBot():
+    bot = Bot(
+        'ACXXXXXXXXXXXXXXXXX',
+        'YYYYYYYYYYYYYYYYYY',
+        '+12316851234',
+        '+15555555555', 
+        name='FAKE'
+    )
+    return bot
 
 if __name__ == "__main__":
     tests = TestBot()
