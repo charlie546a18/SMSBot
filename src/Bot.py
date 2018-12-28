@@ -81,7 +81,7 @@ class Bot:
                     message = self.getMessage('messages.json')
 
                 # Send the Message
-                # self.sendMessage(message)
+                self.sendMessage(message)
 
                 # Get a random interval of time to wait for
                 # Once waiting has finished Send another message
