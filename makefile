@@ -21,7 +21,6 @@ clean:
 	-docker rmi $(image)
 	-docker rmi $(hub_image)
 
-
 # rebuild image
 build: intro clean
 	@docker build -t $(image) .
@@ -33,7 +32,14 @@ run:
 dev_bot: intro build
 	@docker run -it --rm --name $(container)_dev -v ${PWD}:/DEV $(image) bash
 
+
+test:
+	python3 -m pytest
+
 publish:
 	@echo "\n				pushing $(hub_image) to DockerHub"
 	@docker tag ${image} ${hub_image}:latest
 	@docker push ${hub_image}
+
+
+.PHONY: test clean

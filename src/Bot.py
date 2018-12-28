@@ -30,16 +30,19 @@ class Bot:
         client = Client(self.account_sid, self.auth_token)
 
         # Send a sms from twilio number to cell with my_msg as text
-        message = client.messages.create(from_=self.account_num, to=self.target_num, body=msg)
-        print(message.sid)
+        message = client.messages.create(
+            from_=self.account_num, 
+            to=self.target_num, 
+            body=msg
+        )
 
-    def getMessage(self):
+    def getMessage(self, filename):
         try:
-            file = open('messages.json')
+            file = open(filename)   
             messages = file.read()
             json_data = json.loads(messages)
-            return random.choice(json_data['messages'])
             file.close()
+            return random.choice(json_data['messages'])
         except:
             print(f'Cannot Read Messages.json file; Is it in the right location?')
             sys.exit(1)
@@ -75,10 +78,10 @@ class Bot:
                 message = self.checkDate()
                 # Get the Message to be sent
                 if message is None:
-                    message = self.getMessage()
+                    message = self.getMessage('messages.json')
 
                 # Send the Message
-                self.sendMessage(message)
+                # self.sendMessage(message)
 
                 # Get a random interval of time to wait for
                 # Once waiting has finished Send another message
